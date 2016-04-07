@@ -3,11 +3,11 @@ package goeuro.app;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class RateProviderTest {
+public class CityInfoProviderTest {
 
 	@Test
-	public void searchRateFor() throws Exception {
-		RateProvider obj = new RateProvider();
+	public void convertJsonToCvs() throws Exception {
+		CityInfoProvider obj = new CityInfoProvider();
 		String result = obj.convertJsonToCvs(getWellKnowJsonFromGoEuro());
 		Assert.assertEquals(getWellKnownCvs(), result);
 	}
