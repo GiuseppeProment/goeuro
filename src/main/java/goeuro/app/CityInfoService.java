@@ -9,7 +9,7 @@ public class CityInfoService {
 		provider = new CityInfoProvider();
 	}
 
-	public String getCitiesStartingWith(String cityName) {
+	public String getFirstCityStartingWith(String cityName) throws AplicationException {
 		return provider.searchInformationForCity( cityName );
 	}
 

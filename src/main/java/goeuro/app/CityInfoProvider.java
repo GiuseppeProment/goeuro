@@ -5,14 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonValue;
-import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +19,7 @@ public class CityInfoProvider {
 	private static Logger LOG = LogManager.getLogger(CityInfoProvider.class);
 
 	private String readCityInfoFromInternet( String cityName ) {
-		LOG.info("reading city info from internet...");
+		LOG.debug("reading city info from internet...");
 		String input = "";
 		try {
 			URL myurl = new URL("http://api.goeuro.com/api/v2/position/suggest/en/"+cityName);
@@ -39,22 +37,29 @@ public class CityInfoProvider {
 		}
 		return input;
 	}
-
-	public String convertJsonToCvs(String input) {
+	
+	public String convertJsonToCvs(String input) throws AplicationException {
 		JsonReader reader = Json.createReader(new StringReader(input));
-		JsonObject rates = reader.readObject().getJsonObject("rates");
-//		if (rates.containsKey(currency)) {
-//			JsonValue value = rates.get(currency);
-//			return Json.createObjectBuilder()
-//					.add("records",
-//							Json.createArrayBuilder().add(
-//									Json.createObjectBuilder().add("currency", currency).add("value", value).build()))
-//					.build().toString();
-//		}
-		return "";
+		JsonArray cities = reader.readArray();
+		if ( cities.isEmpty() )
+			throw new AplicationException("The city searched can not be found");
+		JsonObject city = cities.getJsonObject(0);
+		JsonObject geoPosition = city.getJsonObject("geo_position");
+		StringBuffer cvs = new StringBuffer();
+		cvs.append(city.get("_id"));
+		cvs.append(',');
+		cvs.append(city.get("name"));
+		cvs.append(',');
+		cvs.append(city.get("type"));
+		cvs.append(',');
+		cvs.append(geoPosition.get("latitude"));
+		cvs.append(',');
+		cvs.append(geoPosition.get("longitude"));
+		cvs.append( System.lineSeparator() );
+		return cvs.toString();
 	}
 
-	public String searchInformationForCity(String cityName) {
+	public String searchInformationForCity(String cityName) throws AplicationException {
 		String json = readCityInfoFromInternet(cityName);
 		return convertJsonToCvs(json);
 	}

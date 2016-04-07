@@ -13,7 +13,7 @@ public class CityInfoProviderTest {
 	}
 	
 	private String getWellKnownCvs() {
-		return "376217,Berlin,location,52.52437,13.41053";
+		return "376217,\"Berlin\",\"location\",52.52437,13.41053"+System.lineSeparator();
 	}
 
 	private String getWellKnowJsonFromGoEuro() {
