@@ -11,7 +11,8 @@ public class App {
 			System.out.println("Wrong use of program, you need informe the City Name.");
 		else
 			try {
-				System.out.println(new CityInfoService().getFirstCityStartingWith(args[0]));
+				CityInfoProvider cityInfoProvider = new CityInfoProvider();
+				System.out.println(new CityInfoService( cityInfoProvider ).getFirstCityStartingWith(args[0]));
 			} catch (AplicationException e) {
 				System.out.println(e.getMessage());
 				LOG.error(e);

@@ -11,7 +11,8 @@ public class CityInfoServiceAcceptTest {
 	@Test
 	@Ignore /* must be run on the continous integration server only*/
 	public void getCitiesStartingWith() throws Exception {
-		CityInfoService service = new CityInfoService();
+		CityInfoProvider cityInfoProvider = new CityInfoProvider();
+		CityInfoService service = new CityInfoService(cityInfoProvider);
 		String citiesAsCvs = service.getFirstCityStartingWith("Berlin");
 		String expected = "376217,\"Berlin\",\"location\",52.52437,13.41053"+System.lineSeparator();
 		assertEquals(expected, citiesAsCvs);

@@ -2,15 +2,15 @@ package goeuro.app;
 
 public class CityInfoService {
 
-	private CityInfoProvider provider;
+	private CityInfoProvider cityInfoProvider;
 
-	public CityInfoService() {
+	public CityInfoService(CityInfoProvider cityInfoProvider) {
 		super();
-		provider = new CityInfoProvider();
+		this.cityInfoProvider = cityInfoProvider;
 	}
 
 	public String getFirstCityStartingWith(String cityName) throws AplicationException {
-		return provider.searchInformationForCity( cityName );
+		return cityInfoProvider.searchInformationForCity( cityName );
 	}
 
 }
