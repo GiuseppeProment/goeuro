@@ -1,6 +1,6 @@
 package goeuro.app;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -8,8 +8,7 @@ import org.junit.Test;
 public class CityInfoServiceAcceptTest {
 
 	/* actually this is a accept test, a kind of end-to-end test, isnt a unit test and its here for sake of simplicity*/
-	@Test
-	@Ignore /* must be run on the continous integration server only*/
+	@Test @Ignore
 	public void getCitiesStartingWith() throws Exception {
 		CityInfoProvider cityInfoProvider = new CityInfoProvider();
 		CityInfoService service = new CityInfoService(cityInfoProvider);

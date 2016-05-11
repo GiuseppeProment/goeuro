@@ -7,6 +7,7 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -15,8 +16,12 @@ import javax.json.JsonReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@ApplicationScoped
 public class CityInfoProvider {
 	private static Logger LOG = LogManager.getLogger(CityInfoProvider.class);
+
+	public CityInfoProvider() {
+	}
 
 	private String readCityInfoFromInternet( String cityName ) {
 		LOG.debug("reading city info from internet...");
